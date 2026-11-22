@@ -12,13 +12,17 @@ The code is finished and tested locally. These are the steps left to make it liv
 | # | What | Who | Where |
 |---|---|---|---|
 | 1 | GitHub repository | KD | Done: `ktgbaby-dev/poffi-stack` |
-| 2 | Vercel project linked to the repo | KD + you | Vercel → Add New → Project → import `poffi-stack`. Kal’s Digital can also create it through the Vercel connector, with your OK. |
+| 2 | Vercel project linked to the repo | KD | **Done 22 Nov 2026.** Project `poffi-stack` (`prj_pAfLFFMbIifvxmdvczZTPAhWosZS`) in team ktg5. Production address: https://poffi-stack.vercel.app. Functions run in London (`lhr1`). First deployment built and checked: the pages load, `/api/health` answers, and the security headers are on. |
+| 2b | Automatic deploys from GitHub | You | A push on 22 Nov did **not** start a deployment. In GitHub → Settings → Applications → Vercel → Repository access, make sure `poffi-stack` is allowed. Until then, use **Redeploy** in the Vercel dashboard after each push. |
 | 3 | Neon Postgres database | You | Vercel project → Storage → Create Database → Neon. Pick the region closest to London (AWS eu-west-2), because the site's functions run in London (`lhr1`). Vercel adds `DATABASE_URL` for you. |
 | 4 | Paystack **test** secret key (`sk_test_…`) | PS | Paystack dashboard → Settings → API Keys & Webhooks |
 | 5 | Paystack webhook URL and signing secret (`whsec_…`) | PS / KD | Set the webhook URL to `https://<site>/api/paystack/webhook`. Copy the signing secret from Developers → API configuration. |
 | 6 | Resend API key | KD or PS | resend.com → API Keys |
 | 7 | A domain to send email from, verified in Resend | PS + KD | Resend → Domains (needs DNS records on the domain) |
-| 8 | Secrets: `SESSION_SECRET`, `CRON_SECRET`, `ADMIN_SETUP_TOKEN` | KD | Generate them (see DEPLOYMENT.md) and add them in Vercel → Settings → Environment Variables |
+| 8 | Secrets: `SESSION_SECRET`, `CRON_SECRET`, `ADMIN_SETUP_TOKEN` | KD | **Done 22 Nov 2026.** Generated and stored in Vercel as Sensitive variables (production and preview). `PAYSTACK_ALLOW_LIVE=false` and `REMINDER_DELIVERY=resend-scheduled` are set too. A copy is kept on the build computer in `poffi-stack-ordering/.data/VERCEL-SECRETS.json`, which git ignores. It holds the one-time `ADMIN_SETUP_TOKEN` for the first owner login. |
+| 9 | `SITE_URL` | KD | Set it at launch to the final address (`https://poffi-stack.vercel.app` or the custom domain). Until then the site uses whatever address each request comes in on. |
+
+> **Visibility:** Vercel counts `poffi-stack.vercel.app` as the project's own domain, so it is **publicly reachable now**, even though deployment-specific URLs need a Vercel login. Until the database is connected, the site shows "We're getting things ready" and takes no orders.
 
 ## 2. Business information (set in the dashboard, not in code)
 
