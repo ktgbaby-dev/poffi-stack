@@ -12,12 +12,11 @@ import { createUser } from "../lib/auth.js";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 process.env.DATABASE_URL ??= "pglite:" + join(root, ".data", "dev");
-if (!process.env.DATABASE_URL.startsWith("pglite:") && !process.argv.includes("--force-demo")) {
-  console.error("Refusing to put demo data in a real database. Use --force-demo if you really mean it.");
-  process.exit(1);
-}
 
 export async function seedDemo({ adminPassword } = {}) {
+  if (!process.env.DATABASE_URL.startsWith("pglite:") && !process.argv.includes("--force-demo")) {
+    throw new Error("Refusing to put demo data in a real database. Use --force-demo if you really mean it.");
+  }
   const db = await getDb();
   const { rows } = await db.query(`SELECT count(*)::int AS n FROM products`);
   if (rows[0].n > 0) return { skipped: true };

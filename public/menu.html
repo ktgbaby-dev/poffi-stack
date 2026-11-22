@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menu · Poffi Stack</title>
+<meta name="description" content="The Poffi Stack menu: pancakes, breakfast and sweet treats. Choose your items and order online.">
+<meta name="theme-color" content="#F34902">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/fredoka-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script type="module" src="/assets/js/menu.js"></script>
+</head>
+<body>
+<a class="sr-only" href="#main">Skip to content</a>
+<div class="announce" data-announcement hidden></div>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="/" aria-label="Poffi Stack home"><img src="/assets/img/logo-disc-96.png" alt="" width="46" height="46"><span>Poffi Stack</span></a>
+    <nav class="nav" aria-label="Main"><a href="/menu" aria-current="page">Menu</a><a href="/#how">How it works</a><a href="/#contact">Contact</a></nav>
+    <button class="cart-btn" type="button" data-open-cart aria-label="Open your order"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.5H6.2L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="cart-count" data-cart-count>0</span></button>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap menu-head">
+    <p class="eyebrow">Freshly made</p>
+    <h1>Our menu</h1>
+    <div class="notice" data-closed hidden role="status">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <div><b>We're not taking online orders right now.</b><span class="muted">You can still browse. Please check back soon.</span></div>
+    </div>
+  </div>
+  <nav class="tabs" aria-label="Menu categories"><div class="wrap" data-tabs></div></nav>
+  <div class="wrap" data-menu>
+    <div class="grid" style="margin-top:28px"><div class="skeleton card-sk"></div><div class="skeleton card-sk"></div><div class="skeleton card-sk"></div></div>
+  </div>
+  <div class="wrap" style="padding:30px 0 70px;text-align:center"><a class="btn btn-primary" href="/checkout" data-checkout-cta>Go to checkout</a></div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="/assets/img/poffi-stack-logo.jpg" alt="Poffi Stack logo" width="84" height="84" loading="lazy"><p data-tagline>Freshly made. Packed with love.</p></div>
+      <div><h3>Order</h3><ul><li><a href="/menu">Menu</a></li><li><a href="/checkout">Checkout</a></li><li><a href="/#how">How it works</a></li></ul></div>
+      <div><h3>Contact</h3><ul data-footer-contact></ul><div data-social-col hidden><h3 style="margin-top:18px">Follow us</h3><ul data-footer-social></ul></div></div>
+    </div>
+    <div class="footer-base">
+      <span>© <span data-year></span> Poffi Stack. Payments are processed securely by Paystack.</span>
+      <a class="powered" href="https://kal-s-digital.vercel.app" rel="noopener" target="_blank">Powered by <img src="/assets/img/kals-digital-white.svg" alt="Kal’s Digital" width="110" height="30"></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

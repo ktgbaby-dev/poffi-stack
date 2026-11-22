@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Checkout · Poffi Stack</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F34902">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/fredoka-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script type="module" src="/assets/js/checkout.js"></script>
+</head>
+<body>
+<a class="sr-only" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="/" aria-label="Poffi Stack home"><img src="/assets/img/logo-disc-96.png" alt="" width="46" height="46"><span>Poffi Stack</span></a>
+    <nav class="nav" aria-label="Main"><a href="/menu">Menu</a></nav>
+    <button class="cart-btn" type="button" data-open-cart aria-label="Open your order"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.5H6.2L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="cart-count" data-cart-count>0</span></button>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="menu-head" style="padding-bottom:0"><p class="eyebrow">Almost there</p><h1>Checkout</h1></div>
+  <div data-state><div class="spinner" aria-label="Loading" style="margin-top:40px"></div></div>
+
+  <form class="checkout" data-form novalidate hidden>
+    <div>
+      <section class="panel" aria-labelledby="h-details">
+        <h2 id="h-details"><span class="n">1</span>Your details</h2>
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required maxlength="80"><span class="err" hidden></span></div>
+        <div class="two">
+          <div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" placeholder="080..."><span class="err" hidden></span></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" inputmode="email" autocomplete="email" required maxlength="254"><span class="hint">Your receipt and order updates go here.</span><span class="err" hidden></span></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-method">
+        <h2 id="h-method"><span class="n">2</span>Pickup or delivery</h2>
+        <div class="method-cards" data-methods role="radiogroup" aria-label="Pickup or delivery"></div>
+        <div data-pickup-info class="muted" style="margin-top:14px" hidden></div>
+        <div data-delivery-fields hidden style="margin-top:16px">
+          <div class="field"><label for="zone">Delivery area</label><select id="zone" name="delivery_zone_id"></select><span class="err" hidden></span></div>
+          <div class="field"><label for="address">Delivery address</label><textarea id="address" name="delivery_address" autocomplete="street-address" maxlength="400" placeholder="House number, street, area and a landmark"></textarea><span class="err" hidden></span></div>
+          <p class="small muted" data-delivery-note hidden></p>
+        </div>
+        <p class="err form-error" data-method-err hidden></p>
+      </section>
+
+      <section class="panel" aria-labelledby="h-time">
+        <h2 id="h-time"><span class="n">3</span>Choose a time</h2>
+        <p class="small muted" data-time-help>Times are in Lagos time (WAT).</p>
+        <div class="days" data-days role="group" aria-label="Choose a date" style="margin-top:12px"></div>
+        <div class="slots" data-slots role="group" aria-label="Choose a time"></div>
+        <p class="form-error" data-slot-err hidden role="alert"></p>
+      </section>
+
+      <section class="panel" aria-labelledby="h-notes">
+        <h2 id="h-notes"><span class="n">4</span>Anything else?</h2>
+        <div class="field" style="margin:0"><label for="notes">Order notes <span class="muted">(optional)</span></label><textarea id="notes" name="notes" maxlength="500" placeholder="Allergies, a birthday message, gate code…"></textarea></div>
+      </section>
+    </div>
+
+    <aside class="summary-col">
+      <section class="panel" aria-labelledby="h-summary">
+        <h2 id="h-summary">Your order</h2>
+        <div data-lines></div>
+        <div style="margin-top:12px">
+          <div class="sum-row"><span>Subtotal</span><b data-subtotal></b></div>
+          <div class="sum-row" data-fee-row hidden><span>Delivery</span><b data-fee></b></div>
+          <div class="sum-row total"><span>Total</span><span data-total></span></div>
+        </div>
+        <dl class="review-list" data-review style="margin-top:16px;padding-top:14px;border-top:1px solid var(--line)"></dl>
+        <label class="check" style="margin-top:12px"><input type="checkbox" data-confirm> <span>I've checked my order, details and time.</span></label>
+        <p class="form-error" data-submit-err hidden role="alert"></p>
+        <button class="btn btn-primary btn-block" type="submit" data-pay style="margin-top:8px">Pay securely</button>
+        <p class="secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>You'll pay on Paystack's secure page.</p>
+      </section>
+    </aside>
+  </form>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-base" style="margin-top:0;border-top:0;padding-top:0">
+      <span>© <span data-year></span> Poffi Stack. Payments are processed securely by Paystack.</span>
+      <a class="powered" href="https://kal-s-digital.vercel.app" rel="noopener" target="_blank">Powered by <img src="/assets/img/kals-digital-white.svg" alt="Kal’s Digital" width="110" height="30"></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

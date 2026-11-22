@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Poffi Stack · Order pancakes, breakfast and sweet treats online</title>
+<meta name="description" content="Order from Poffi Stack online: pancakes, breakfast and sweet treats, freshly made. Choose your time, pay securely with Paystack, pick up or get it delivered.">
+<meta name="theme-color" content="#F34902">
+<meta property="og:title" content="Poffi Stack · Order online">
+<meta property="og:description" content="Pancakes, breakfast and sweet treats, freshly made. Order online and pay securely.">
+<meta property="og:image" content="/assets/img/logo-square-512.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/fredoka-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script type="module" src="/assets/js/home.js"></script>
+</head>
+<body>
+<a class="sr-only" href="#main">Skip to content</a>
+<div class="announce" data-announcement hidden></div>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="/" aria-label="Poffi Stack home"><img src="/assets/img/logo-disc-96.png" alt="" width="46" height="46"><span>Poffi Stack</span></a>
+    <nav class="nav" aria-label="Main"><a href="/menu">Menu</a><a href="#how">How it works</a><a href="#contact">Contact</a></nav>
+    <button class="cart-btn" type="button" data-open-cart aria-label="Open your order"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.5H6.2L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="cart-count" data-cart-count>0</span></button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="hero-kicker">Pancakes · Breakfast · Sweet treats</span>
+        <h1 data-hero-title>Freshly made. <em>Packed with love.</em></h1>
+        <p class="lead" data-hero-text>Order online, choose your time and pay securely.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="/menu">Order now</a>
+          <a class="btn btn-ghost" href="#how">How it works</a>
+        </div>
+        <div class="notice" data-closed hidden role="status">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <div><b>We're not taking online orders right now.</b><span class="muted" data-closed-text>You can still look through the menu. Please check back soon.</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="hero-blob"></div>
+        <img class="art" src="/assets/img/stack-illustration.svg" alt="" data-hero-art>
+        <div class="sticker s1">Freshly made</div>
+        <div class="sticker s2" data-hero-sticker>Order online</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-cream" id="featured" aria-labelledby="featured-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div><p class="eyebrow">From the menu</p><h2 id="featured-title">Customer favourites</h2></div>
+        <a class="btn btn-dark" href="/menu">See the full menu</a>
+      </div>
+      <div class="grid" data-featured>
+        <div class="skeleton card-sk"></div><div class="skeleton card-sk"></div><div class="skeleton card-sk"></div>
+      </div>
+      <div class="chips" data-categories style="margin-top:26px" aria-label="Menu categories"></div>
+    </div>
+  </section>
+
+  <section class="section" id="about" data-about hidden>
+    <div class="wrap about">
+      <div><p class="eyebrow">About us</p><h2 data-about-title>About Poffi Stack</h2></div>
+      <p data-about-text></p>
+    </div>
+  </section>
+
+  <section class="section band-black" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head"><div><p class="eyebrow">Easy ordering</p><h2 id="how-title">How it works</h2></div></div>
+      <ol class="steps" style="list-style:none;padding:0;margin:0" data-steps>
+        <li class="step"><div class="step-num">1</div><h3>Choose your treats</h3><p>Browse the menu, pick sizes and extras, and add them to your order.</p></li>
+        <li class="step"><div class="step-num">2</div><h3>Pick a time</h3><p data-step-time>Choose a date and time that works for you.</p></li>
+        <li class="step"><div class="step-num">3</div><h3>Pay securely</h3><p>Pay online with Paystack by card, bank transfer or USSD.</p></li>
+        <li class="step"><div class="step-num">4</div><h3 data-step-4-title>Pick up or delivery</h3><p data-step-4>We make it fresh and have it ready at your chosen time.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="reviews" data-reviews hidden aria-labelledby="reviews-title">
+    <div class="wrap">
+      <div class="section-head"><div><p class="eyebrow">Kind words</p><h2 id="reviews-title">What customers say</h2></div></div>
+      <div class="quotes" data-quotes></div>
+    </div>
+  </section>
+
+  <section class="section band-cream" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <p class="eyebrow">Questions?</p>
+      <h2 id="contact-title">Get in touch</h2>
+      <p class="sub" data-contact-sub>Order online any time the menu is open.</p>
+      <div class="contact-list" data-contact></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="/assets/img/poffi-stack-logo.jpg" alt="Poffi Stack logo" width="84" height="84" loading="lazy"><p data-tagline>Freshly made. Packed with love.</p></div>
+      <div><h3>Order</h3><ul><li><a href="/menu">Menu</a></li><li><a href="/checkout">Checkout</a></li><li><a href="/#how">How it works</a></li></ul></div>
+      <div><h3>Contact</h3><ul data-footer-contact></ul><div data-social-col hidden><h3 style="margin-top:18px">Follow us</h3><ul data-footer-social></ul></div></div>
+    </div>
+    <div class="footer-base">
+      <span>© <span data-year></span> Poffi Stack. Payments are processed securely by Paystack.</span>
+      <a class="powered" href="https://kal-s-digital.vercel.app" rel="noopener" target="_blank">Powered by <img src="/assets/img/kals-digital-white.svg" alt="Kal’s Digital" width="110" height="30"></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
