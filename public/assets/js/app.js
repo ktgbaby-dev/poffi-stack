@@ -16,6 +16,9 @@ export async function api(path, { method = "GET", body } = {}) {
     throw new ApiError(0, { message: "We couldn't reach the server. Check your connection and try again." });
   }
   const data = await res.json().catch(() => null);
+  // Setup gaps and outages get a customer-friendly message, never a technical one.
+  if (res.status === 503 && data?.error === "not_configured") throw new ApiError(503, { ...data, message: "We're getting things ready. Please check back soon." });
+  if (res.status >= 500 && !data?.message) throw new ApiError(res.status, { message: "Something went wrong on our side. Please try again in a moment." });
   if (!res.ok) throw new ApiError(res.status, data);
   return data;
 }

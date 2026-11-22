@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Poffi Stack online ordering and management platform (customer site, Paystack checkout, owner dashboard, email automation). Built by Kal's Digital.",
   "engines": {
-    "node": ">=20"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "node dev/server.js",
