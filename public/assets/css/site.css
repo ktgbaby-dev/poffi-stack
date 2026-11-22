@@ -234,6 +234,9 @@ section { scroll-margin-top: 90px; }
 
 /* ---------- forms (checkout) ---------- */
 .checkout { display: grid; gap: 24px; padding: 28px 0 64px; align-items: start; }
+/* Grid children may shrink below their content's width; without this a horizontally scrolling row
+   (the date picker) stretches the whole column past the screen edge on phones. */
+.checkout > *, .hero-grid > *, .about > *, .footer-grid > *, .panel { min-width: 0; }
 @media (min-width: 980px) { .checkout { grid-template-columns: 1.25fr .75fr; } .summary-col { position: sticky; top: 92px; } }
 .panel { background: var(--white); border: 2px solid var(--ink); border-radius: var(--radius); padding: 22px; }
 .panel + .panel { margin-top: 18px; }

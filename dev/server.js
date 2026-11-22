@@ -57,7 +57,9 @@ const MIME = {
   ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp", ".ico": "image/x-icon", ".woff2": "font/woff2", ".json": "application/json", ".txt": "text/plain; charset=utf-8", ".webmanifest": "application/manifest+json",
 };
 const CLEAN = { "/": "index.html", "/menu": "menu.html", "/checkout": "checkout.html", "/order": "order.html", "/admin": "admin/index.html", "/admin/": "admin/index.html" };
-const SECURITY = { "X-Content-Type-Options": "nosniff", "Referrer-Policy": "strict-origin-when-cross-origin", "X-Frame-Options": "DENY" };
+// Same security headers as production (vercel.json), so local tests catch anything they would block.
+const vercelHeaders = JSON.parse(readFileSync(join(root, "vercel.json"), "utf8")).headers.find((h) => h.source === "/(.*)").headers;
+const SECURITY = Object.fromEntries(vercelHeaders.filter((h) => h.key !== "Strict-Transport-Security").map((h) => [h.key, h.value]));
 
 async function readBody(req) { const c = []; for await (const x of req) c.push(x); return Buffer.concat(c); }
 

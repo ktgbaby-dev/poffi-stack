@@ -223,14 +223,15 @@ async function viewOrders(query) {
   const tabs = [["upcoming", "Upcoming"], ["attention", "Needs attention"], ["awaiting_payment", "Awaiting payment"], ["completed", "Completed"], ["cancelled", "Cancelled"], ["all", "All"]];
   v.innerHTML = `<div class="page-head"><div><h1>Orders</h1><p>Sorted by fulfilment time. Times are Lagos time.</p></div><button class="btn btn-sm btn-ghost" data-refresh>Refresh</button></div>
     <nav class="tabs-row">${tabs.map(([k, l]) => `<a href="#/orders?view=${k}" class="${k === view ? "active" : ""}">${l}</a>`).join("")}</nav>
-    <form class="filters" data-filters>
+    <details class="filters-wrap" ${["q", "status", "payment", "from", "to"].some((k) => q.get(k)) || matchMedia("(min-width: 900px)").matches ? "open" : ""}><summary class="btn btn-sm btn-ghost">Search &amp; filter</summary>
+    <form class="filters" data-filters style="margin-top:12px">
       <div class="field search"><label for="fq">Search</label><input id="fq" name="q" placeholder="Order number, name, phone or email" value="${esc(q.get("q") || "")}"></div>
       <div class="field"><label for="fs">Status</label><select id="fs" name="status"><option value="">Any</option>${Object.entries(STATUS).map(([k, l]) => `<option value="${k}" ${q.get("status") === k ? "selected" : ""}>${l}</option>`).join("")}</select></div>
       <div class="field"><label for="fp">Payment</label><select id="fp" name="payment"><option value="">Any</option>${Object.entries(PAY).map(([k, l]) => `<option value="${k}" ${q.get("payment") === k ? "selected" : ""}>${l}</option>`).join("")}</select></div>
       <div class="field"><label for="ff">From</label><input id="ff" type="date" name="from" value="${esc(q.get("from") || "")}"></div>
       <div class="field"><label for="ft">To</label><input id="ft" type="date" name="to" value="${esc(q.get("to") || "")}"></div>
       <button class="btn btn-dark btn-sm" style="min-height:44px">Filter</button>
-    </form>
+    </form></details>
     <div data-list>${loading()}</div>`;
   v.querySelector("[data-filters]").addEventListener("submit", (e) => {
     e.preventDefault();
@@ -338,7 +339,7 @@ async function viewMenu(query) {
   const priceText = (p) => (p.variations.length ? `${p.variations.map((x) => `${esc(x.name)} ${naira(x.price_kobo)}`).join(" · ")}` : naira(p.price_kobo));
   const groups = [...categories.map((c) => ({ ...c, items: products.filter((p) => p.category_id === c.id) })), { id: null, name: "No category", items: products.filter((p) => p.category_id === null) }]
     .map((g) => ({ ...g, items: g.items.filter((p) => showArchived || !p.archived) })).filter((g) => g.id !== null || g.items.length);
-  v.innerHTML = `<div class="page-head"><div><h1>Menu</h1><p>Changes show on the website straight away.</p></div>
+  v.innerHTML = `<div class="page-head"><div><h1>Menu</h1><p>Changes show on the website within a few seconds.</p></div>
       <div class="actions">${owner ? `<a class="btn btn-primary" href="#/menu/product/new">Add product</a>` : ""}<a class="btn btn-sm btn-ghost" href="#/menu${showArchived ? "" : "?archived=1"}">${showArchived ? "Hide" : "Show"} archived</a></div></div>
     ${!products.length ? `<div class="alert hot" style="margin-bottom:16px"><span>${I.alert}</span><div><b>Your menu is empty.</b> ${owner ? "Add a category, then your products with their real prices and photos." : "Ask the owner to add the menu."}</div></div>` : ""}
     <div class="cols"><div>${groups.map((g) => `<div class="box"><h2>${esc(g.name)}${g.id && g.active === false ? ' <span class="pill s-cancelled">Hidden</span>' : ""}</h2>
@@ -348,7 +349,7 @@ async function viewMenu(query) {
           <div class="row2">${p.archived ? "" : `<label class="small muted">Availability <select data-avail="${p.id}"><option value="available" ${p.status === "available" ? "selected" : ""}>Available</option><option value="sold_out" ${p.status === "sold_out" ? "selected" : ""}>Sold out</option><option value="hidden" ${p.status === "hidden" ? "selected" : ""}>Hidden</option></select></label>`}
           ${owner ? `<a class="btn btn-sm btn-ghost" href="#/menu/product/${p.id}">Edit</a>` : ""}</div></div></div>`).join("") : `<p class="muted">No products yet.</p>`}</div>`).join("")}</div>
     <div>${owner ? `<div class="box"><h2>Categories</h2>
-        ${categories.map((c) => `<form class="rowedit" data-cat="${c.id}" style="grid-template-columns:1fr 70px auto auto"><input name="name" value="${esc(c.name)}" aria-label="Category name" class="field" style="min-height:44px;border-radius:10px;border:2px solid var(--line-strong);padding:6px 10px;margin:0"><input name="sort" type="number" value="${c.sort}" aria-label="Order" style="min-height:44px;border-radius:10px;border:2px solid var(--line-strong);padding:6px 8px"><label class="mini-check"><input type="checkbox" name="active" ${c.active ? "checked" : ""}> Show</label><span><button class="btn btn-sm btn-dark">Save</button> <button type="button" class="link-btn" data-del-cat="${c.id}">Delete</button></span></form>`).join("") || `<p class="muted">No categories yet.</p>`}
+        ${categories.map((c) => `<form class="rowedit" data-cat="${c.id}" style="grid-template-columns:1fr 64px;padding-bottom:10px;border-bottom:1px solid var(--line)"><input name="name" value="${esc(c.name)}" aria-label="Category name" style="min-width:0;min-height:44px;border-radius:10px;border:2px solid var(--line-strong);padding:6px 10px"><input name="sort" type="number" value="${c.sort}" aria-label="Position" title="Position" style="min-width:0;min-height:44px;border-radius:10px;border:2px solid var(--line-strong);padding:6px 8px"><div style="grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px"><label class="mini-check"><input type="checkbox" name="active" ${c.active ? "checked" : ""}> Show on menu</label><button class="btn btn-sm btn-dark">Save</button><button type="button" class="link-btn" data-del-cat="${c.id}">Delete</button></div></form>`).join("") || `<p class="muted">No categories yet.</p>`}
         <form data-new-cat style="display:flex;gap:8px;margin-top:12px"><input name="name" placeholder="New category, e.g. Pancakes" required style="flex:1;min-height:44px;border-radius:10px;border:2px solid var(--line-strong);padding:6px 10px"><button class="btn btn-sm btn-primary">Add</button></form>
         <p class="form-error" data-cat-err hidden></p></div>` : ""}</div></div>`;
   v.querySelectorAll("[data-avail]").forEach((sel) => sel.addEventListener("change", async () => {

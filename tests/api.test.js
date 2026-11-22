@@ -465,6 +465,31 @@ test("cron-mode reminders: sent when due, once each, never for cancelled or comp
   }
 });
 
+test("backup and restore: a full copy restores into an empty database, and never over live data", async () => {
+  const shop = await setup();
+  const placed = await place(shop);
+  await payAndVerify(placed);
+  const png = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+  await h.api("POST", "/api/admin/media", { admin: true, body: { data: png } });
+  const { exportAll, restoreAll } = await import("../lib/backup.js");
+  const { openDatabase } = await import("../lib/db.js");
+  const backup = JSON.parse(JSON.stringify(await exportAll(await h.getDb())));
+  const fresh = await openDatabase("pglite:memory");
+  try {
+    const counts = await restoreAll(fresh, backup);
+    assert.deepEqual(counts, backup.counts);
+    const { rows } = await fresh.query(`SELECT reference, payment_status, total_kobo FROM orders`);
+    assert.deepEqual(rows, [{ reference: "PS-0001", payment_status: "paid", total_kobo: 1100000 }]);
+    const { rows: m } = await fresh.query(`SELECT bytes FROM media`);
+    assert.equal(Buffer.from(m[0].bytes).toString("base64"), png);
+    const { rows: seq } = await fresh.query(`SELECT nextval('order_number_seq')::int AS n`);
+    assert.equal(seq[0].n, 2, "order numbers continue after the restored ones");
+    await assert.rejects(() => restoreAll(fresh, backup), /already has data/);
+  } finally {
+    await fresh.close();
+  }
+});
+
 test("changing reminder times reschedules upcoming orders' reminders", async () => {
   const shop = await setup();
   const a = await place(shop, { time: "15:00" });

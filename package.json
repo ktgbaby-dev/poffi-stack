@@ -4,14 +4,18 @@
   "private": true,
   "type": "module",
   "description": "Poffi Stack online ordering and management platform (customer site, Paystack checkout, owner dashboard, email automation). Built by Kal's Digital.",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "node dev/server.js",
     "test": "node --test --test-concurrency=1 tests/*.test.js",
     "test:e2e": "node tests-e2e/run.mjs",
     "db:migrate": "node scripts/migrate.mjs",
     "admin:create": "node scripts/create-admin.mjs",
-    "seed:demo": "node scripts/seed-demo.mjs"
+    "seed:demo": "node scripts/seed-demo.mjs",
+    "backup": "node scripts/backup.mjs",
+    "restore": "node scripts/restore.mjs"
   },
   "dependencies": {
     "pg": "8.23.1"

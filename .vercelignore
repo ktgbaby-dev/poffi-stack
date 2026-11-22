@@ -1,0 +1,11 @@
+dev/
+tests/
+tests-e2e/
+tools/
+docs/
+scripts/
+test-results/
+.data/
+.env*
+*.md
+!README.md
