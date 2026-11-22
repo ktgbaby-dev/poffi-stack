@@ -13,7 +13,7 @@ The code is finished and tested locally. These are the steps left to make it liv
 |---|---|---|---|
 | 1 | GitHub repository | KD | Done: `ktgbaby-dev/poffi-stack` |
 | 2 | Vercel project linked to the repo | KD | **Done 22 Nov 2026.** Project `poffi-stack` (`prj_pAfLFFMbIifvxmdvczZTPAhWosZS`) in team ktg5. Production address: https://poffi-stack.vercel.app. Functions run in London (`lhr1`). First deployment built and checked: the pages load, `/api/health` answers, and the security headers are on. |
-| 2b | Automatic deploys from GitHub | You | A push on 22 Nov did **not** start a deployment. In GitHub → Settings → Applications → Vercel → Repository access, make sure `poffi-stack` is allowed. Until then, use **Redeploy** in the Vercel dashboard after each push. |
+| 2b | Automatic deploys from GitHub | KD | **Working.** Every push to `main` redeploys production in about 10 seconds. The only exception was one push made while the project was still being linked. |
 | 3 | Neon Postgres database | You | Vercel project → Storage → Create Database → Neon. Pick the region closest to London (AWS eu-west-2), because the site's functions run in London (`lhr1`). Vercel adds `DATABASE_URL` for you. |
 | 4 | Paystack **test** secret key (`sk_test_…`) | PS | Paystack dashboard → Settings → API Keys & Webhooks |
 | 5 | Paystack webhook URL and signing secret (`whsec_…`) | PS / KD | Set the webhook URL to `https://<site>/api/paystack/webhook`. Copy the signing secret from Developers → API configuration. |
